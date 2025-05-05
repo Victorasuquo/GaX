@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <a href="{% url 'dashboard' %}" class="btn btn-link" style="position: absolute; top: 10px; left: 10px;">
+        <i class="fas fa-arrow-left"></i> Dashboard
+    </a>
+    <h4 class="text-center text-primary">Buy Data</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="network" class="form-label">Select Network</label>
+            <select class="form-control" id="network" name="network">
+                <option value="">-- Choose Network --</option>
+                <option value="MTN">MTN</option>
+                <option value="Airtel">Airtel</option>
+                <option value="Glo">Glo</option>
+                <option value="9mobile">9mobile</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="number" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" name="number" required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount (₦)</label>
+            <input type="number" class="form-control" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Buy Data</button>
+    </form>
+</div>
+{% endblock %}

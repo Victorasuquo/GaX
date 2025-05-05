@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <a href="{% url 'dashboard' %}" class="btn btn-link" style="position: absolute; top: 10px; left: 10px;">
+        <i class="fas fa-arrow-left"></i> Dashboard
+    </a>
+    <h4>Buy Airtime</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="network" class="form-label">Network</label>
+            <select class="form-control" name="network" required>
+                <option value="">-- Select Network --</option>
+                <option value="mtn">MTN</option>
+                <option value="airtel">Airtel</option>
+                <option value="glo">Glo</option>
+                <option value="9mobile">9mobile</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" name="phone" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" name="amount" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Buy Airtime</button>
+    </form>
+</div>
+{% endblock %}

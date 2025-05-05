@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <a href="{% url 'dashboard' %}" class="btn btn-link" style="position: absolute; top: 10px; left: 10px;">
+        <i class="fas fa-arrow-left"></i>  Dashboard
+    </a>
+    <h4 class="text-center text-primary">Pay Electricity Bill</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="disco" class="form-label">Disco Provider</label>
+            <select class="form-control" id="disco" name="disco">
+                <option value="">-- Select DISCO --</option>
+                <option value="Ikeja Electric">Ikeja Electric</option>
+                <option value="Eko Electric">Eko Electric</option>
+                <option value="Abuja Electric">Abuja Electric</option>
+                <option value="KEDCO">KEDCO</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="meter" class="form-label">Meter Number</label>
+            <input type="text" class="form-control" name="meter" required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount (₦)</label>
+            <input type="number" class="form-control" name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Pay Electricity</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Manage Cards</h3>
+<form method="POST">
+    {% csrf_token %}
+    <ul class="list-group mb-4">
+        {% for account in accounts %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ account.account_type|capfirst }} - Balance: ${{ account.balance }}
+                <button type="submit" name="freeze_{{ account.id }}" class="btn {% if account.is_frozen %}btn-danger{% else %}btn-secondary{% endif %}">
+                    {% if account.is_frozen %}Unfreeze{% else %}Freeze{% endif %}
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+</form>
+<a href="{% url 'dashboard' %}">Back to dashboard</a>
+{% endblock %}

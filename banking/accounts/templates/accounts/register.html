@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4 rounded-4">
+        <h3 class="text-center mb-4" style="color: #2387f1;">Create an Account</h3>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label" style="color: #2387f1;">{{ field.label }}</label>
+                    <div class="input-group">
+                        <!-- Manually add the class -->
+                        {{ field }} <!-- The field will already be rendered with default attributes -->
+                    </div>
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary rounded-pill">Register</button>
+            </div>
+        </form>
+        <p class="text-center mt-3" style="color: #2387f1;">Already have an account? <a href="{% url 'login' %}" style="color: #2387f1;">Login</a></p>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .form-control {
+        width: 100%; 
+        padding: 16px;  
+        border-radius: 5px;
+        border: 2px solid #007bff;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #0056b3;
+        box-shadow: 0 0 5px rgba(0, 91, 255, 0.5);
+    }
+</style>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4 rounded-4">
+        <h3 class="text-center mb-4">Login to Your Account</h3>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success rounded-pill">Login</button>
+            </div>
+        </form>
+        <p class="text-center mt-3">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</div>
+{% endblock %}

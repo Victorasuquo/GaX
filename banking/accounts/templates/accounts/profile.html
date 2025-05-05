@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container mt-5 text-center">
+    <style>
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid #007bff;
+      }
+
+      #profile-input {
+        display: none;
+      }
+
+      .col-md-8, .col-md-8 p, .col-md-8 h2 {
+        color: #007bff;
+      }
+    </style>
+
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <a href="{% url 'dashboard' %}" class="btn btn-link" style="position: absolute; top: 10px; left: 10px;">
+            <i class="fas fa-arrow-left"></i> 
+        </a>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'update_profile_picture' %}">
+          {% csrf_token %}
+          <label for="profile-input">
+            {% if profile.profile_picture %}
+              <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+            {% else %}
+              <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture" class="profile-pic">
+            {% endif %}
+          </label>
+          <input type="file" id="profile-input" name="profile_picture" accept="image/*" capture="environment" onchange="this.form.submit();">
+        </form>
+      </div>
+      <div class="col-md-8">
+        <h2>{{ profile.user.username }}</h2>
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+        <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+        <p><strong>Location:</strong> {{ profile.location }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

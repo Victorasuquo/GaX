@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-color: #eaf1ff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .balance-card {
+        background-color: #177bee;
+        color: white;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        margin-top: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .balance-card h2 {
+        color: #FF8C00;  /* Bright orange color for better visibility */
+    }
+
+    .action-button {
+        background-color: white;
+        color: #177bee;
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+        text-align: center;
+        margin: 0.5rem;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        font-weight: 500;
+        flex: 1;
+    }
+
+    .service-grid {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1.5rem 1rem;
+        margin-top: 1.5rem;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    }
+
+    .service-item {
+        width: 100%;
+        padding: 1rem 0.5rem;
+        text-align: center;
+        border-radius: 1rem;
+        background: #f9fbff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        height: 110px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.2s ease-in-out;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .service-item:hover {
+        transform: translateY(-3px);
+    }
+
+    .service-item i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #177bee;
+    }
+
+    .service-item p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        border-top: 1px solid #ddd;
+        display: flex;
+        justify-content: space-around;
+        padding: 0.75rem 0;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        z-index: 1000;
+    }
+
+    .bottom-nav a {
+        text-decoration: none;
+        color: #4a90e2;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .logout-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background-color: #ff4d4d;
+        color: white;
+        border-radius: 50%;
+        padding: 10px 15px;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+        .d-flex {
+            flex-direction: column;
+        }
+
+        .action-button {
+            width: 100%;  /* Make buttons take full width on small screens */
+            margin: 0.5rem 0;
+        }
+
+        .service-item {
+            height: auto;  /* Allow service items to resize on small screens */
+        }
+
+        .service-grid .row {
+            display: block;
+        }
+
+        .bottom-nav {
+            flex-direction: row;
+        }
+    }
+
+    /* Extra small screen fixes (portrait mode) */
+    @media (max-width: 576px) {
+        .balance-card {
+            padding: 1.5rem;
+        }
+
+        .service-item i {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<div class="container">
+    <!-- Logout Button -->
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </form>
+
+    <div class="balance-card text-center">
+        <p class="mb-1">Welcome, {{ user.username }}</p>
+        <h5>Total Balance</h5>
+        <h2 class="fw-bold">₦{{ profile.balance|default:0 }}</h2> <!-- This is where the balance color is changed -->
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'deposit' %}" class="action-button">Add Money</a>
+            <a href="{% url 'transfer' %}" class="action-button">Transfer</a>
+            <a href="{% url 'withdraw' %}" class="action-button">Withdraw</a>
+        </div>
+    </div>
+</div>
+<div class="container px-2">
+    <div class="row g-3">
+      <div class="col-4 col-md-3 text-center">
+        <a href="{% url 'buy_airtime' %}" class="service-item d-block">
+          <i class="fas fa-mobile-alt"></i>
+          <p>Airtime</p>
+        </a>
+      </div>
+      <div class="col-4 col-md-3 text-center">
+        <a href="{% url 'buy_data' %}" class="service-item d-block">
+          <i class="fas fa-wifi"></i>
+          <p>Data</p>
+        </a>
+      </div>
+      <div class="col-4 col-md-3 text-center">
+        <a href="{% url 'pay_tv' %}" class="service-item d-block">
+          <i class="fas fa-tv"></i>
+          <p>TV</p>
+        </a>
+      </div>
+      <div class="col-4 col-md-3 text-center">
+        <a href="{% url 'pay_electricity' %}" class="service-item d-block">
+          <i class="fas fa-bolt"></i>
+          <p>Electricity</p>
+        </a>
+      </div>
+      <div class="col-4 col-md-3 text-center">
+        <a href="#" class="service-item d-block">
+          <i class="fas fa-users"></i>
+          <p>Refer & Earn</p>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+
+<h5 class="mt-4">Recent Transactions</h5>
+<ul class="list-group mb-5">
+    {% for txn in transactions %}
+    <li class="list-group-item d-flex justify-content-between">
+        <span>{{ txn.transaction_type|capfirst }} - ₦{{ txn.amount }}</span>
+        <small class="text-muted">{{ txn.timestamp|date:"M d, H:i" }}</small>
+    </li>
+    {% empty %}
+    <li class="list-group-item">No recent transactions.</li>
+    {% endfor %}
+</ul>
+</div>
+
+<div class="bottom-nav">
+    <a href="#"><i class="fas fa-home"></i><br>Home</a>
+    <a href="#"><i class="fas fa-gift"></i><br>Rewards</a>
+    <a href="#"><i class="fas fa-wallet"></i><br>Finance</a>
+    <a href="{% url 'manage_cards' %}"><i class="fas fa-credit-card"></i><br>Cards</a>
+    <a href="{% url 'profile' %}"><i class="fas fa-user"></i><br>Me</a> <!-- Update link to profile -->
+</div>
+
+{% endblock %}

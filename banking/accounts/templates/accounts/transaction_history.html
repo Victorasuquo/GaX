@@ -1,0 +1,25 @@
+<!-- templates/transaction_history.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h3>Transaction History</h3>
+
+<form method="GET" class="mb-3">
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Filter</button>
+</form>
+
+<ul class="list-group">
+    {% for txn in transactions %}
+        <li class="list-group-item">
+            <strong>{{ txn.transaction_type|capfirst }}</strong> of ${{ txn.amount }}
+            {% if txn.from_account %} from {{ txn.from_account }}{% endif %}
+            {% if txn.to_account %} to {{ txn.to_account }}{% endif %}
+            <br><small>{{ txn.timestamp|date:"SHORT_DATETIME_FORMAT" }}</small>
+        </li>
+    {% empty %}
+        <li class="list-group-item">No transactions found.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'dashboard' %}" class="btn btn-link mt-3">Back to dashboard</a>
+{% endblock %}

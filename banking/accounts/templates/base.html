@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript for showing a loading spinner
+        function showLoading() {
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.classList.add('spinner-border', 'text-light');
+            loadingSpinner.setAttribute('role', 'status');
+            loadingSpinner.innerHTML = '<span class="sr-only">Loading...</span>';
+            document.body.appendChild(loadingSpinner);
+        }
+    
+        // JavaScript to hide the loading spinner
+        function hideLoading() {
+            const spinner = document.querySelector('.spinner-border');
+            if (spinner) {
+                spinner.remove();
+            }
+        }
+    
+        // Example usage on form submission
+        document.querySelector('#submitButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoading();
+    
+            // Simulate an API call or action
+            setTimeout(() => {
+                hideLoading();
+                alert('Form submitted successfully!');
+            }, 2000);
+        });
+    </script>
+    
+</body>
+</html>
