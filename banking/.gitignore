@@ -31,7 +31,6 @@ staticfiles/
 # Virtual Environment
 /venv/
 ../venv/
-C:/Users/USER/Documents/GaX/venv/
 venv/
 env/
 ENV/
