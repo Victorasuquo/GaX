@@ -29,6 +29,8 @@ media/
 staticfiles/
 
 # Virtual Environment
+/venv/
+../venv/
 venv/
 env/
 ENV/
@@ -40,7 +42,7 @@ ENV/
 *.swp
 *.swo
 .DS_Store
-C:\Users\USER\Documents\GaX\venv
+
 # Coverage reports
 htmlcov/
 .tox/
